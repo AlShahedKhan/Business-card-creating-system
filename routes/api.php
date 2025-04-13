@@ -23,9 +23,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/get-contact/{contact}', [ContactController::class, 'show'])->name('contact.show');
 
     Route::prefix('cards')->group(function () {
-        Route::get('/', [CardController::class, 'index']); // List all cards
-        Route::get('/{id}', [CardController::class, 'show']); // Show single card
-        Route::post('/store-or-update/{id?}', [CardController::class, 'storeOrUpdate']); // Create or update card
-        Route::delete('/{id}', [CardController::class, 'destroy']); // DELETE card
+        Route::get('/', [CardController::class, 'index']);
+        Route::get('/{id}', [CardController::class, 'show']);
+        Route::post('/store-or-update/{id?}', [CardController::class, 'storeOrUpdate']);
+        Route::delete('/{id}', [CardController::class, 'destroy']);
     });
 });

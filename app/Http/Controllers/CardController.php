@@ -22,9 +22,7 @@ class CardController extends Controller
         );
     }
 
-    /**
-     * Show a specific card by ID.
-     */
+
     public function show($id): JsonResponse
     {
         return $this->safeCall(function () use ($id) {
@@ -38,9 +36,7 @@ class CardController extends Controller
         });
     }
 
-    /**
-     * Create or update a card.
-     */
+
     public function storeOrUpdate(CardRequest $request, $id = null): JsonResponse
     {
         return $this->safeCall(function () use ($request, $id) {
