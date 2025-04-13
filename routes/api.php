@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CardController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
@@ -20,4 +21,11 @@ Route::post('/contact', [ContactController::class, 'store'])->name('contact.stor
 Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/get-all-contact', [ContactController::class, 'index'])->name('contact.index');
     Route::get('/get-contact/{contact}', [ContactController::class, 'show'])->name('contact.show');
+
+    Route::prefix('cards')->group(function () {
+        Route::get('/', [CardController::class, 'index']); // List all cards
+        Route::get('/{id}', [CardController::class, 'show']); // Show single card
+        Route::post('/store-or-update/{id?}', [CardController::class, 'storeOrUpdate']); // Create or update card
+        Route::delete('/{id}', [CardController::class, 'destroy']); // DELETE card
+    });
 });
