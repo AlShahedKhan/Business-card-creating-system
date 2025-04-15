@@ -29,3 +29,4 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::delete('/{id}', [CardController::class, 'destroy']);
     });
 });
+// 
