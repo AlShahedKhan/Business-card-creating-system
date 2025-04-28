@@ -18,7 +18,7 @@ class CardController extends Controller
     public function index(): JsonResponse
     {
         return $this->safeCall(fn() =>
-            $this->successResponse('Cards retrieved successfully.', Card::all())
+            $this->successResponse('Cards retrieved successfully.', Card::paginate(10))
         );
     }
 
@@ -64,9 +64,6 @@ class CardController extends Controller
     }
 
 
-    /**
-     * Delete a card by ID.
-     */
     public function destroy($id): JsonResponse
     {
         return $this->safeCall(function () use ($id) {
