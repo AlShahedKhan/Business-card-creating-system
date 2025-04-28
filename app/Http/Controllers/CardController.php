@@ -7,7 +7,7 @@ use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\CardRequest;
-
+use Illuminate\Support\Facades\Log;
 class CardController extends Controller
 {
     use ApiResponse;
@@ -36,25 +36,33 @@ class CardController extends Controller
         });
     }
 
-
-    public function storeOrUpdate(CardRequest $request, $id = null): JsonResponse
+    public function storeOrUpdate(CardRequest $request, $id = null)
     {
-        return $this->safeCall(function () use ($request, $id) {
-            $validated = $request->validated();
+        // Retrieve the 'data' as a JSON string from the request
+        $data = json_decode($request->input('data'), true);
 
-            $card = $id ? Card::find($id) : new Card();
+        // Check if the card exists for updating, or create a new instance
+        $card = $id ? Card::findOrFail($id) : new Card();
 
-            if (!$card && $id) {
-                return $this->errorResponse('Card not found.', 404);
-            }
+        // If there is an uploaded image for the logo, handle the file upload
+        if ($request->hasFile('logo')) {
+            $path = $request->file('logo')->store('address_logos', 'public');
+            $data['address_logo'] = $path;  // Save the file path in the data
+        }
 
-            $card->fill($validated)->save();
+        // Update or create the card record
+        $card->fill($data);
 
-            $message = $id ? 'Card updated successfully.' : 'Card created successfully.';
+        // Save the card
+        $card->save();
 
-            return $this->successResponse($message, $card, $id ? 200 : 201);
-        });
+        // Return a response
+        return response()->json([
+            'message' => $id ? 'Card updated successfully' : 'Card created successfully',
+            'card' => $card
+        ], 200);
     }
+
 
     /**
      * Delete a card by ID.

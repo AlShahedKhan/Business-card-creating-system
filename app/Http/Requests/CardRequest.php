@@ -22,13 +22,21 @@ class CardRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => 'nullable|string|max:25',
-            'last_name'  => 'nullable|string|max:25',
-            'position'   => 'nullable|string|max:50',
-            'email'      => 'nullable|email|max:25',
-            'phone'      => 'nullable|string|max:20',
-            'address'    => 'nullable|string|max:255',
-            'website'    => 'nullable|url|max:100',
+            'first_name'          => 'nullable|string|max:25',
+            'last_name'           => 'nullable|string|max:25',
+            'company_name'        => 'nullable|string|max:50',
+            'position'            => 'nullable|string|max:50',
+            'group_or_individual' => 'nullable|in:group,individual',
+            'emails'              => 'nullable|array',
+            'emails.*'            => 'nullable|email|max:50',
+            'phones'              => 'nullable|array',
+            'phones.*'            => 'nullable|string|max:20',
+            'websites'            => 'nullable|array',
+            'websites.*'          => 'nullable|url|max:100',
+            'social_media_links'  => 'nullable|array',
+            'social_media_links.*' => 'nullable|url|max:100',
+            'address_logo'        => 'nullable|image|mimes:jpg,jpeg,png,gif', // Updated validation for file upload
+            'address'             => 'nullable|string|max:255',
         ];
     }
 }

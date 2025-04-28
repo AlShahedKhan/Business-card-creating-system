@@ -15,18 +15,20 @@ return new class extends Migration
             $table->id();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
+            $table->string('company_name')->nullable();
             $table->string('position')->nullable();
-            $table->string('email')->nullable();
-            $table->string('phone')->nullable();
+            $table->enum('group_or_individual', ['group', 'individual'])->nullable();
+            $table->json('emails')->nullable();
+            $table->json('phones')->nullable();
+            $table->json('websites')->nullable();
+            $table->json('social_media_links')->nullable();
+            $table->string('address_logo')->nullable();
             $table->string('address')->nullable();
-            $table->string('website')->nullable();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+
     public function down(): void
     {
         Schema::dropIfExists('cards');
