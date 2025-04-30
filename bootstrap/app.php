@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Middleware\ValidatePathEncoding;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -12,7 +13,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        // 'path.encoding' => \Illuminate\Http\Middleware\ValidatePathEncoding::class,
+        $middleware->append(ValidatePathEncoding::class);
+
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
