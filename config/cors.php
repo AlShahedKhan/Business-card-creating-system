@@ -23,6 +23,8 @@ return [
     'allowed_origins' => [
         'http://localhost:3000',
         'http://localhost:3001',
+        'http://104.236.194.254:3000',
+        'http://104.236.194.254:3001',
     ],
 
     'allowed_origins_patterns' => [],
