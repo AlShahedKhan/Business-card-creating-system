@@ -17,7 +17,7 @@ class CardRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'template_id'         => 'nullable|integer|max:10',
+            'template_id'         => 'nullable|string|max:25',
             'first_name'          => 'nullable|string|max:25',
             'last_name'           => 'nullable|string|max:25',
             'company_name'        => 'nullable|string|max:50',
