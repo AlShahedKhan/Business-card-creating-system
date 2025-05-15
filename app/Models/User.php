@@ -18,6 +18,7 @@ class User extends Authenticatable implements JWTSubject
     const ROLE_ADMIN = 'admin';
 
     protected $fillable = [
+        'user_id',
         'first_name',
         'last_name',
         'email',
